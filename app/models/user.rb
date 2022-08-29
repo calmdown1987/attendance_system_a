@@ -33,4 +33,9 @@ class User < ApplicationRecord
     self.remeber = User.new_token
     update_attribute(:remember_digest, User.digest(remember_token))
   end
+  
+  # トークンがダイジェストと一致すればtrueを返します
+  def authenticated?(remember_token)
+    Bcrypt::Password.new(remember_digest).is_password?(remeber_token)
+  end
 end
