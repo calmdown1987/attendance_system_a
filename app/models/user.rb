@@ -30,7 +30,7 @@ class User < ApplicationRecord
 
   # 永続セッションのためハッシュ化したトークンをデータベースに記憶します。
   def remeber
-    self.remeber = User.new_token
+    self.remember = User.new_token
     update_attribute(:remember_digest, User.digest(remember_token))
   end
   
