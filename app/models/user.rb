@@ -49,4 +49,14 @@ class User < ApplicationRecord
   def forget
     update_attribute(:remember_digest,nil)
   end
+  
+  # 部分一致検索 このself.はUserを意味する
+  def self.search(search)
+    if search
+      where(['name LIKE ?', "%#{search}%"]) #検索とnameの部分一致を表示。User.は省略。
+    else
+      all  
+    end
+  end
+
 end

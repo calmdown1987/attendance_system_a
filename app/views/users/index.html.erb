@@ -1,7 +1,19 @@
 <% provide(:title, 'All Users') %>
-<h1>ユーザー一覧</h1>
+  <% if params[:search].blank? %>
+    <h1>すべてのユーザー</h1>
+  <% else %>
+    <h1>検索結果</h1>
+  <% end %>
 
-<div class="col-md-10 col-md-offset-1">
+  <div class="col-md-3 pull-right">
+    <%= form_with url:users_path, method: :get, class: "form_inline", local: true do |f| %>
+      <%= f.label:Search, 'ユーザー名検索' %>
+      <%= f.text_field :search, class: "search-form" %>
+      <%= f.submit '検索', name: nil, class: "btn btn-primary search-btn"%>
+    <% end %>
+  </div>
+  
+  <div class="col-md-10 col-md-offset-1">  
   <%= will_paginate %>
   <table class="table table-condensed table-hover" id="table-users">
     <thead>
